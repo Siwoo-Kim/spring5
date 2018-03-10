@@ -116,8 +116,10 @@
 
     <bean id="standardTarget" class="com.siwoo.application.learning.ioc.MethodReplacementInjection$ReplacementTarget" />
 
-
-
+    <bean id="string1" class="java.lang.String" />
+    <bean name="string2" class="java.lang.String" />
+    <bean class="java.lang.String" />
+    <bean class="java.lang.String" id="siwooKim" name="sw,siwooK;saewoo" />
 
 
 
