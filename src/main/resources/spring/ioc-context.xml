@@ -96,8 +96,7 @@
 
     <bean id="singer"
           class="com.siwoo.application.learning.common.Singer"
-          scope="prototype"
-    />
+          scope="prototype"/>
 
     <bean id="standardLookupBean" class="com.siwoo.application.learning.ioc.LookupMethodInjection$StandardLookupBean"
         p:mySinger-ref="singer"/>
