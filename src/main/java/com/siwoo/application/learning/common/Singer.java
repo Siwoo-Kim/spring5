@@ -16,6 +16,14 @@ public class Singer {
     private String name;
     private int age = Integer.MIN_VALUE;
 
+    public void sing(Guitar guitar){
+        System.out.println("playing: "+guitar.play());
+    }
+
+    public void rest(){
+        System.out.println("zzzz");
+    }
+
 
 //    public void init(){
 //        System.out.println("Initializing bean");
@@ -44,7 +52,13 @@ public class Singer {
     }
 
 
-        public void sing(){
+    public void sing(){
+        //System.out.println("..." + inspirationBean.getLyric());
+        //System.out.println(lyric);
+        System.out.println("sing1");
+    }
+    public void sing2(){
+        System.out.println("sing2");
         //System.out.println("..." + inspirationBean.getLyric());
         //System.out.println(lyric);
     }
