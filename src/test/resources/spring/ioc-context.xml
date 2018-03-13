@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<bean id="renderer" class="com.siwoo.application.learning.common.MessageRenderer" />-->
+    <bean id="messageRenderer" class="com.siwoo.application.learning.common.StandardOutMessageRenderer"
+        p:messageProvider-ref="configurableMessageProvider"
+    />
+
+    <bean id="messageProvider" class="com.siwoo.application.learning.common.HellowordMessageProvider" />
+    <!--<bean id="configurableMessageProvider" class="com.siwoo.application.learning.common.ConfigurableMessageProvider"
+        p:message="Greeting Spring 5!"
+    />-->
+
+    <bean id="configurableMessageProvider" class="com.siwoo.application.learning.common.ConfigurableMessageProvider"
+          p:message-ref="message"
+    />
+
+    <bean id="message" class="java.lang.String"
+        c:_0="Greeting Spring 5!"/>
+    <bean id="anotherMessage" class="java.lang.String"
+          c:_0="This message is from the ancient of ..."/>
+
+    <bean id="oracle"
+          name="bookworm"
+          class="com.siwoo.application.learning.common.BookwormOracle" />
+
+    <context:component-scan base-package="com.siwoo.application.learning.common;com.siwoo.application.learning.ioc">
+        <!--<context:exclude-filter type="assignable" expression="com.siwoo.application.learning.common.NotAComponent" />-->
+        <context:exclude-filter type="regex" expression="com.siwoo.application.*(NotA).*" />
+        <context:exclude-filter type="annotation" expression="org.springframework.context.annotation.Configuration" />
+    </context:component-scan>
+
+    <bean id="intConstructorConfusion"
+          class="com.siwoo.application.learning.common.ConstructorConfusion">
+        <constructor-arg  type="java.lang.Integer" ><value>90</value></constructor-arg>
+    </bean>
+
+    <bean id="strConstructorConfusion"
+          class="com.siwoo.application.learning.common.ConstructorConfusion">
+        <constructor-arg value="90" />
+    </bean>
+
+    <bean id="injectSimpleSpelConfig" class="com.siwoo.application.learning.ioc.InjectWrapperDemo$InjectWrapperDemoConfig" />
+
+    <!--<bean id="injectSimpleSpel" class="com.siwoo.application.learning.ioc.InjectWrapperDemo"-->
+          <!--p:name="Siwoo Kim"-->
+          <!--p:age="28"-->
+          <!--p:height="173"-->
+          <!--p:programmer="true"-->
+          <!--p:ageInSeconds="841401112"-->
+    <!--/>-->
+
+    <bean id="injectSimpleSpel" class="com.siwoo.application.learning.ioc.InjectWrapperDemo"
+          p:name="#{injectSimpleSpelConfig.name}"
+          p:age="#{injectSimpleSpelConfig.age}"
+          p:height="#{injectSimpleSpelConfig.height}"
+          p:programmer="#{injectSimpleSpelConfig.programmer}"
+          p:ageInSeconds="#{injectSimpleSpelConfig.ageInSeconds}"/>
+
+    <bean id="lyricHolder" class="com.siwoo.application.learning.common.LyricHolder" />
+
+    <import resource="classpath:/spring/ioc-collection-context.xml" />
+    <bean id="injectCollection" class="com.siwoo.application.learning.ioc.CollectionInjection">
+        <property name="map">
+            <map>
+                <entry key="name" value="Siwoo Kim" />
+                <entry key="age" value="27" />
+                <entry key="lyric" value-ref="lyricHolder" />
+            </map>
+        </property>
+        <property name="prop">
+            <props>
+                <prop key="name">Siwoo Kim</prop>
+                <prop key="age">27</prop>
+                <!--property cannot save the object as value-->
+            </props>
+        </property>
+        <property name="set">
+            <set>
+                <value>Generic Set</value>
+                <ref bean="lyricHolder" />
+            </set>
+        </property>
+        <property name="list">
+            <set>
+                <value>Generic List</value>
+                <ref bean="lyricHolder" />
+            </set>
+        </property>
+    </bean>
+
+    <bean id="singer"
+          class="com.siwoo.application.learning.common.Singer"
+          scope="prototype"/>
+
+    <bean id="standardLookupBean" class="com.siwoo.application.learning.ioc.LookupMethodInjection$StandardLookupBean"
+        p:mySinger-ref="singer"/>
+
+    <bean id="abstractLookupBean" class="com.siwoo.application.learning.ioc.LookupMethodInjection$AbstractLookupBean">
+        <lookup-method name="getMySinger" bean="singer" />
+    </bean>
+
+    <bean id="formatMessageReplacer" class="com.siwoo.application.learning.ioc.MethodReplacementInjection$FormatMessageReplacer" />
+
+    <bean id="replacementTarget" class="com.siwoo.application.learning.ioc.MethodReplacementInjection$ReplacementTarget" >
+        <replaced-method name="formatMessage" replacer="formatMessageReplacer">
+            <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+
+    <bean id="standardTarget" class="com.siwoo.application.learning.ioc.MethodReplacementInjection$ReplacementTarget" />
+
+    <bean id="string1" class="java.lang.String" />
+    <bean name="string2" class="java.lang.String" />
+    <bean class="java.lang.String" />
+    <bean class="java.lang.String" id="siwooKim" name="sw,siwooK;saewoo" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</beans>

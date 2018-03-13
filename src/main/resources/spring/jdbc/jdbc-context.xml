@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:properties location="classpath:/properties/jdbc.properties" id="jdbcProp" />
+
+    <!--
+    DriverManagerDataSource
+    Simple implementation of the standard JDBC {@link javax.sql.DataSource} interface,
+    This class is not an actual connection pool; it does not actually* pool Connections.
+    -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        p:password="#{jdbcProp['jdbc.password']}"
+        p:username="#{jdbcProp['jdbc.username']}"
+        p:driverClassName="#{jdbcProp['jdbc.driverClassName']}"
+        p:url="#{jdbcProp['jdbc.url']}" />
+    <!--
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+            c:dataSource-ref="dataSource"/>
+    -->
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate"
+          c:dataSource-ref="dataSource"/>
+
+    <bean id="singerRepository" class="com.siwoo.application.learning.jdbc.repository.JdbcSingerRepository"
+        c:_0-ref="jdbcTemplate"/>
+
+</beans>

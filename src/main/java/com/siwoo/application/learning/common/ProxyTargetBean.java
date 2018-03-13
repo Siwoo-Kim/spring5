@@ -1,7 +1,10 @@
 package com.siwoo.application.learning.common;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
+@Component("scannedProxyTargetBean")
 public class ProxyTargetBean implements ProxyTarget {
     @Override
     public void greeting() {

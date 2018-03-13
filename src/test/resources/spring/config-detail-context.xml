@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd"
+        default-lazy-init="true"
+        default-init-method="app_init"
+        default-destroy-method="app_destroy"
+>-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-lazy-init="true"
+       default-init-method="app_init">
+
+    <bean id="singer1" class="com.siwoo.application.learning.common.Singer"
+          p:name="아이유" p:age="25"/>
+
+    <bean id="singer2" class="com.siwoo.application.learning.common.Singer"
+          p:name="나연" />
+
+    <bean id="singer3" class="com.siwoo.application.learning.common.Singer"
+          p:age="25"/>
+
+    <bean class="com.siwoo.application.learning.environment.BeanDestroyDemo$DestructiveBean"
+        p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
+
+    <!--
+        <bean class="com.siwoo.application.learning.environment.BeanDestroyDemo$DestructiveBean"
+        p:filePath="#{systemProperties['java.io.tmpdir']}#{systemProperties['file.separator']}test.txt"/>
+    -->
+
+    <bean id="shaDigest" class="com.siwoo.application.learning.environment.FactoryBeanDemo$MessageDigestFactoryBean"
+        p:algorithmName="SHA1"/>
+    <bean id="defaultDigest" class="com.siwoo.application.learning.environment.FactoryBeanDemo$MessageDigestFactoryBean"/>
+
+    <bean id="digester" class="com.siwoo.application.learning.environment.FactoryBeanDemo$MessageDigester"
+        p:digest1-ref="shaDigest" p:digest2-ref="defaultDigest"/>
+
+
+    <bean name="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="com.siwoo.application.learning.common.FullName" value="com.siwoo.application.learning.environment.NamePropertyEditor" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="exampleBean" class="com.siwoo.application.learning.environment.PropertyEditorDemo$SampleBean"
+        p:fullName="Siwoo Kim"/>
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource"
+        p:basenames-ref="basenames"/>
+
+    <util:list id="basenames" list-class="java.util.ArrayList">
+        <value>i18n/test</value>
+    </util:list>
+
+    <bean class="com.siwoo.application.learning.environment.MessageEventDemo$MessageEventListener" />
+    <bean class="com.siwoo.application.learning.environment.MessageEventDemo$MessagePublisher" />
+
+</beans>
