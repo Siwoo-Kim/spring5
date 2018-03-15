@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class JdbcSinger extends Singer {
 
     public boolean addAlbum(Album album){
-        if(album == null){
+        if(albums == null){
             setAlbums(new ArrayList<>());
             getAlbums().add(album);
             return true;

@@ -78,6 +78,11 @@ public class PureJdbcSingerRepository implements SingerRepository {
         }
     }
 
+    @Override
+    public void saveWithAlbum(Singer singer) {
+        throw new UnsupportedOperationException();
+    }
+
     private static String SQL_FINDALL = "select * from singer";
     @Override
     public List<Singer> findAll() {
@@ -140,7 +145,7 @@ public class PureJdbcSingerRepository implements SingerRepository {
     }
 
     @Override
-    public List<Singer> findByFirstname(String firstName) {
+    public List<Singer> findByFirstName(String firstName) {
         throw new UnsupportedOperationException("not implement");
     }
 
@@ -160,18 +165,18 @@ public class PureJdbcSingerRepository implements SingerRepository {
     }
 
     @Override
-    public void update(Singer singer) {
+    public boolean update(Singer singer) {
         throw new UnsupportedOperationException("not implement");
     }
 
 
     @Override
-    public List<Singer> findAllWithDetail() {
+    public List<Singer> findAllWithAlbums() {
         throw new UnsupportedOperationException("not implement");
     }
 
     @Override
-    public void insertWithDefail(Singer singer) {
+    public void insertWithDetail(Singer singer) {
         throw new UnsupportedOperationException("not implement");
     }
 }

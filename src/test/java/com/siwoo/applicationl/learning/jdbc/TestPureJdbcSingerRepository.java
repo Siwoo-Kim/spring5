@@ -20,7 +20,15 @@ public class TestPureJdbcSingerRepository {
     private static PureJdbcSingerRepository singerRepository = new PureJdbcSingerRepository();
 
     public static Consumer<List<Singer>> listSinger = singers -> {
-        singers.stream().map(Singer::toString).forEach(log::info);
+        singers.stream().forEach(singer -> {
+            log.info(singer.toString());
+            if(singer.getAlbums() != null && singer.getAlbums().size() > 0){
+                singer.getAlbums().forEach(album -> {
+                    log.info(album.toString());
+                });
+            }
+        });
+
     };
 
     @Test

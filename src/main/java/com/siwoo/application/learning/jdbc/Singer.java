@@ -17,4 +17,6 @@ public abstract class Singer implements Serializable{
     protected Date birthDate;
     protected List<Album> albums;
 
+
+
 }
