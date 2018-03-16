@@ -1,5 +1,6 @@
 package com.siwoo.application.learning.jdbc.repository;
 
+import com.siwoo.application.learning.hibernate.entity.SingerEntity;
 import com.siwoo.application.learning.jdbc.Album;
 import com.siwoo.application.learning.jdbc.JdbcAlbum;
 import com.siwoo.application.learning.jdbc.JdbcSinger;
@@ -33,7 +34,7 @@ import java.util.*;
 
 @Slf4j
 @Repository("jdbcSingerRepository")
-public class JdbcSingerRepository implements SingerRepository {
+public class JdbcSingerRepository implements SingerRepository<Singer> {
     //private DataSource dataSource;
     //private JdbcTemplate jdbcTemplate;
     @Autowired
@@ -126,6 +127,10 @@ public class JdbcSingerRepository implements SingerRepository {
         return findAllSingers.execute();
     }
 
+    @Override
+    public SingerEntity findById(Long id) {
+        throw new UnsupportedOperationException();
+    }
 
 
     private static final String SQL_FINDALL_WITH_ALBUMS

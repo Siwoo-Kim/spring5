@@ -1,5 +1,6 @@
 package com.siwoo.application.learning.jdbc.repository;
 
+import com.siwoo.application.learning.hibernate.entity.SingerEntity;
 import com.siwoo.application.learning.jdbc.JdbcSinger;
 import com.siwoo.application.learning.jdbc.Singer;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class PureJdbcSingerRepository implements SingerRepository {
+public class PureJdbcSingerRepository implements SingerRepository<Singer> {
 
     static{
         Connection connection = null;
@@ -119,6 +120,11 @@ public class PureJdbcSingerRepository implements SingerRepository {
             closeConnection(c);
         }
         return r;
+    }
+
+    @Override
+    public SingerEntity findById(Long id) {
+        throw new UnsupportedOperationException();
     }
 
     private static final String SQL_DELETE = "delete from singer where id = ? ";

@@ -1,26 +1,30 @@
 package com.siwoo.application.learning.jdbc.repository;
 
 
+import com.siwoo.application.learning.hibernate.entity.SingerEntity;
 import com.siwoo.application.learning.jdbc.Singer;
 
 import java.util.List;
 
-public interface SingerRepository {
+public interface SingerRepository<T>{
 
-    List<Singer> findAll();
-    List<Singer> findByFirstName(String firstName);
+    List<T> findAll();
+
+    SingerEntity findById(Long id);
+
+    List<T> findByFirstName(String firstName);
 
     String findFullNameById(Long id);
 
     String findLastNameById(Long id);
     String findFirstNameById(Long id);
-    void save(Singer singer);
+    void save(T singer);
 
-    void saveWithAlbum(Singer singer);
+    void saveWithAlbum(T singer);
 
-    boolean update(Singer singer);
+    boolean update(T singer);
     void delete(Long singerId);
-    List<Singer> findAllWithAlbums();
-    void insertWithDetail(Singer singer);
+    List<T> findAllWithAlbums();
+    void insertWithDetail(T singer);
     
 }
